@@ -38,4 +38,4 @@
 
 - [x] 6.1 Run strict OpenSpec validation, frozen dependency install, content validation, type checks, unit tests, production build, browser/axe/link checks, Lighthouse CI, and CDK synthesis; record and resolve every failure before marking this integration task complete.
 - [x] 6.2 Review the production output to confirm no draft title, slug, placeholder claim, PDF action, credential, generated report, or build artifact is tracked or public, and verify `git status` contains only intended source artifacts.
-- [ ] 6.3 Commit the complete validated implementation to `main` with a descriptive initial commit and push it to `origin`, verifying the remote `main` revision matches the local commit and no AWS deployment has run.
+- [x] 6.3 Commit the complete validated implementation to `main` with a descriptive initial commit and push it to `origin`, verifying the remote `main` revision matches the local commit and no AWS deployment has run.
