@@ -1,0 +1,39 @@
+{
+  "name": "Isac Zarate",
+  "headline": "Backend Engineer / SDET",
+  "email": "isaczarate805@gmail.com",
+  "website": "https://isaczarate.com",
+  "reviewedAt": "2026-10-06",
+  "experience": {
+    "title": "Engineering Intern",
+    "company": "VivoSense",
+    "location": "Newport Coast, California",
+    "dates": "June 2025–Present",
+    "responsibilities": [
+      "Assist with software validation.",
+      "Conduct testing and contribute to documentation.",
+      "Use AI to analyze and update code, test cases, and documentation.",
+      "Review code changes and recommend improvements to readability and maintainability.",
+      "Analyze existing application code and implement updates to support software changes."
+    ]
+  },
+  "education": {
+    "school": "California State University Channel Islands",
+    "degree": "Bachelor of Science in Computer Science",
+    "dates": "August 2023–May 2027",
+    "expectedGraduation": "May 2027"
+  },
+  "skills": [
+    { "category": "Programming", "items": ["Java", "Python", "JavaScript", "Kotlin", "C", "HTML"] },
+    { "category": "Development", "items": ["Full-Stack Development", "REST API Development", "Data Pipelines", "Debugging", "Troubleshooting"] },
+    { "category": "Testing and Automation", "items": ["Selenium", "Test Automation", "Manual Testing", "API Testing", "Functional Testing", "Regression Testing", "Test Case Design", "Postman", "Insomnia"] },
+    { "category": "Cloud and Tools", "items": ["AWS", "Amazon S3", "Amazon DynamoDB", "Firebase", "Git", "GitHub", "GitHub Actions", "Linux", "Jira", "Visual Studio Code"] },
+    { "category": "Professional", "items": ["Agile/Scrum", "Software Development Life Cycle", "Technical Documentation", "Problem Solving", "Communication"] }
+  ],
+  "project": {
+    "title": "ClassSeek",
+    "dates": "February 2026–May 2026",
+    "summary": "A mobile app that helps students manage campus life, with course schedules and reminders, study room availability, event discovery, a searchable campus map with filters, and push notifications for deadlines and events."
+  },
+  "languages": ["English", "Spanish"]
+}

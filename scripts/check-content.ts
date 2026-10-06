@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { extname, join, relative, resolve } from 'node:path';
 import { parse as parseYaml } from 'yaml';
 import { siteConfig } from '../src/config/site';
+import { resume } from '../src/config/resume';
 import {
   findDraftLeakage,
   formatContentIssues,
@@ -31,7 +32,10 @@ function parseFrontmatter(path: string): unknown {
   return parseYaml(match[1]);
 }
 
-const issues: ContentIssue[] = validatePublicValue('src/config/site.ts', siteConfig);
+const issues: ContentIssue[] = [
+  ...validatePublicValue('src/config/site.ts', siteConfig),
+  ...validatePublicValue('src/data/resume.json', resume),
+];
 if (siteConfig.resume.pdfPath) {
   const pdf = join(repositoryRoot, 'public', siteConfig.resume.pdfPath);
   if (!existsSync(pdf) || readFileSync(pdf).subarray(0, 5).toString() !== '%PDF-') {

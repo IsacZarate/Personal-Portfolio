@@ -36,7 +36,7 @@ Astro.csp?.insertScriptHash(`sha256-${createHash('sha256').update(jsonLd).digest
     <meta property="og:type" content="website" /><meta property="og:site_name" content={`${siteConfig.name} / ${siteConfig.handle}`} />
     <meta property="og:title" content={metadata.socialTitle} /><meta property="og:description" content={metadata.description} />
     <meta property="og:url" content={metadata.canonical} /><meta property="og:image" content={socialImage} />
-    <meta property="og:image:alt" content={`${siteConfig.name} / ${siteConfig.handle} — full-stack engineering and software quality`} />
+    <meta property="og:image:alt" content={`${siteConfig.name} / ${siteConfig.handle} — ${siteConfig.role}`} />
     <meta name="twitter:card" content="summary_large_image" /><meta name="theme-color" content="#f3efe6" />
     <script type="application/ld+json" set:html={jsonLd} />
   </head>

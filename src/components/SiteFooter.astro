@@ -10,6 +10,7 @@ import { siteConfig } from '../config/site';
   <nav aria-label="Footer navigation">
     <a href="/work/">Work</a><a href="/about/">About</a><a href="/resume/">Résumé</a>
     {siteConfig.github && <a href={siteConfig.github} rel="me">GitHub</a>}
+    {siteConfig.email && <a href={`mailto:${siteConfig.email}`}>Email</a>}
   </nav>
   <p class="fine-print">Static by design. No tracking, account, or contact form.</p>
 </footer>

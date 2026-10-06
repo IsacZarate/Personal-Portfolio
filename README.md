@@ -1,15 +1,16 @@
 # Isac Zarate — Personal Portfolio
 
-A static, editorial portfolio for **Isac Zarate / TheDevIsacZ**, focused on full-stack engineering and software quality. The site is built with Astro and TypeScript, tested as a product, and designed to deploy to a private S3 origin behind CloudFront.
+A static, editorial portfolio for **Isac Zarate / TheDevIsacZ**, headed **Backend Engineer / SDET**. The site is built with Astro and TypeScript, tested as a product, and designed to deploy to a private S3 origin behind CloudFront.
 
 ## Current content state
 
-The first version intentionally ships without invented experience:
+The public content uses supplied résumé facts:
 
 - The two project case studies are drafts and cannot appear on public routes.
 - `/work/` shows an honest empty state until a case study is verified and published.
-- `/resume/` is an accessible HTML fallback. A PDF action is rendered only after an approved PDF is configured.
-- Social and contact links render only when verified URLs are supplied.
+- `/resume/` provides experience, education, skills, languages, a short ClassSeek overview, and an approved PDF for viewing and download.
+- Email is the public contact method. Phone and postal address are excluded; LinkedIn remains unset.
+- The sanitized editable résumé and PDF share the website's public data. See [résumé maintenance](docs/resume/README.md) for regeneration and verification.
 
 See [`docs/content-guide.md`](docs/content-guide.md) before publishing personal or project content.
 

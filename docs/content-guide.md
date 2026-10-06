@@ -25,6 +25,6 @@ Do not use `TODO`, `TBD`, `FIXME`, `[[PLACEHOLDER]]`, `[[UNVERIFIED]]`, `[[DRAFT
 5. Complete the project-level review markers and run `pnpm lint:content`, `pnpm test`, and `pnpm build`.
 6. Inspect the generated `dist` output and confirm no other draft title or slug appears.
 
-The resume PDF, email, LinkedIn URL, and case-study metrics remain absent until real values are supplied. Omission is the supported fallback; placeholder public values are not.
+The supplied résumé and approved email are published using shared public data. Follow [public résumé maintenance](resume/README.md) when updating or regenerating the documents. Phone and postal address are excluded. LinkedIn and case-study metrics remain absent until supplied and verified. Omission is the supported fallback; placeholder public values are not.
 
 Drafts are excluded from the website, not secret from repository readers. Keep sensitive research outside the repository. The sample illustrations live in `docs/drafts/`, outside public assets. Move approved images into `public/images/` and update their paths before publishing. Prefer compressed WebP/AVIF with intrinsic dimensions. A configured résumé path must point to an existing PDF in `public/`; the build rejects absent or non-PDF files.

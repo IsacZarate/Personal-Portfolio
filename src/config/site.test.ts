@@ -7,7 +7,7 @@ describe('resume configuration', () => {
     expect(siteConfigSchema.safeParse({ ...siteConfig, resume: { pdfPath: '//elsewhere/resume.pdf' } }).success).toBe(false);
   });
   it('uses the accessible HTML fallback when no PDF is configured', () => {
-    expect(hasResumePdf(siteConfig)).toBe(false);
+    expect(hasResumePdf({ ...siteConfig, resume: {} })).toBe(false);
   });
 
   it('recognizes a configured PDF without inventing a default path', () => {

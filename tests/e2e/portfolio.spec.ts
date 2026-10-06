@@ -59,15 +59,48 @@ test.describe('public portfolio', () => {
     await expect(page).toHaveURL(/\/about\/$/);
   });
 
-  test('shows honest work and resume fallback states', async ({ page }) => {
+  test('shows an empty work state while ClassSeek remains a resume overview', async ({ page, request }) => {
     await page.goto('/work/');
     await expect(page.getByRole('heading', { name: /case studies are being prepared/i })).toBeVisible();
     await expect(page.locator('article.project-card')).toHaveCount(0);
     await expect(page.getByRole('link', { name: /View repository|Open live project/i })).toHaveCount(0);
+    await expect(page.getByText('ClassSeek')).toHaveCount(0);
+    await page.goto('/');
+    await expect(page.getByText('ClassSeek')).toHaveCount(0);
+    expect((await request.get('/work/classseek/')).status()).toBe(404);
+    expect(await (await request.get('/sitemap-0.xml')).text()).not.toContain('/work/classseek');
 
     await page.goto('/resume/');
-    await expect(page.getByRole('note')).toContainText('No PDF download is shown');
-    await expect(page.getByRole('link', { name: /download résumé pdf/i })).toHaveCount(0);
+    await expect(page.getByRole('heading', { name: 'ClassSeek', exact: true })).toBeVisible();
+  });
+
+  test('publishes sourced resume details and working PDF and email actions', async ({ page, request }) => {
+    await page.goto('/resume/');
+    await expect(page.getByRole('heading', { name: 'Engineering Intern at VivoSense' })).toBeVisible();
+    await expect(page.getByText(/June 2025–Present/)).toBeVisible();
+    await expect(page.getByText(/Expected graduation: May 2027/)).toBeVisible();
+    const email = page.getByRole('link', { name: 'isaczarate805@gmail.com', exact: true });
+    await expect(email).toHaveAttribute('href', 'mailto:isaczarate805@gmail.com');
+    const view = page.getByRole('link', { name: 'View résumé PDF', exact: true });
+    const download = page.getByRole('link', { name: 'Download résumé PDF', exact: true });
+    await expect(view).toHaveAttribute('href', '/resume/isac-zarate-resume.pdf');
+    await expect(download).toHaveAttribute('download', 'isac-zarate-resume.pdf');
+    await view.focus();
+    await expect(view).toBeFocused();
+    const pdf = await request.get('/resume/isac-zarate-resume.pdf');
+    expect(pdf.status()).toBe(200);
+    expect(pdf.headers()['content-type']).toContain('application/pdf');
+    const body = await pdf.body();
+    expect(body.subarray(0, 5).toString()).toBe('%PDF-');
+    const downloaded = page.waitForEvent('download');
+    await download.click();
+    const file = await downloaded;
+    expect(file.suggestedFilename()).toBe('isac-zarate-resume.pdf');
+    expect(await file.failure()).toBeNull();
+    await page.goto('/about/');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Backend Engineer / SDET');
+    await expect(page.getByText(/graduation expected in May 2027/)).toBeVisible();
+    await expect(page.getByRole('link', { name: 'isaczarate805@gmail.com', exact: true })).toBeVisible();
   });
 
   test('the interactive quality sequence supports its keyboard model', async ({ page }) => {

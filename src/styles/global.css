@@ -68,6 +68,8 @@ main { min-height: 70vh; } .section { padding-block: clamp(4rem, 10vw, 9rem); bo
 .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; list-style: none; } .tag-list li { padding: 0.25rem 0.55rem; border: 1px solid var(--line); font-size: var(--step--1); }
 .evidence-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; } .evidence-card { padding: 1.25rem; border: 1px solid var(--line); } .evidence-card p:last-child { margin-bottom: 0; }
 .site-footer { display: grid; grid-template-columns: 1fr auto; gap: 2rem; padding-block: 3rem; align-items: start; } .site-footer p { margin-bottom: 0.4rem; } .site-footer .fine-print { grid-column: 1 / -1; }
+.site-footer nav { flex-wrap: wrap; }
+.resume-entry > h3:first-child, .resume-entry > div:first-child > h3 { margin-top: 0; }
 html[data-enhanced='true'] [data-reveal] { transform: translateY(1.25rem); transition: transform 700ms var(--ease); }
 html[data-enhanced='true'] [data-reveal][data-visible='true'] { transform: none; }
 @media (max-width: 48rem) {

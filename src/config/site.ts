@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { resume } from './resume';
 
 const httpsUrl = z.url().startsWith('https://');
 export const siteConfigSchema = z.object({
@@ -16,12 +17,13 @@ export type SiteConfig = z.infer<typeof siteConfigSchema>;
 export const siteConfig = siteConfigSchema.parse({
   name: 'Isac Zarate',
   handle: 'TheDevIsacZ',
-  role: 'Full-stack engineer with an SDET mindset',
+  role: resume.headline,
   description:
-    'A portfolio about building useful software and the quality systems that make it dependable.',
+    'Isac Zarate — Backend Engineer / SDET, with experience in application development, software testing, and API-based systems.',
   domain: 'https://isaczarate.com',
   github: 'https://github.com/IsacZarate',
-  resume: {},
+  email: resume.email,
+  resume: { pdfPath: '/resume/isac-zarate-resume.pdf', lastReviewed: resume.reviewedAt },
 });
 
 export function hasResumePdf(config: SiteConfig = siteConfig): config is SiteConfig & {

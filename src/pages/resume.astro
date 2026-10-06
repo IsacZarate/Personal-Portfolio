@@ -1,14 +1,43 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { hasResumePdf, siteConfig } from '../config/site';
+import { resume } from '../config/resume';
 ---
 
-<BaseLayout title="Résumé" description="Accessible résumé summary for Isac Zarate, focused on full-stack and SDET roles." pathname="/resume/">
-  <header class="page-intro"><p class="eyebrow">Résumé</p><h1>Isac Zarate <span aria-hidden="true">/</span> TheDevIsacZ</h1><p class="lede">Full-stack engineer with an SDET mindset.</p>{hasResumePdf(siteConfig) && <div class="button-row"><a class="button button-primary" href={siteConfig.resume.pdfPath}>View résumé PDF</a><a class="button button-secondary" href={siteConfig.resume.pdfPath} download>Download résumé PDF</a></div>}</header>
-  <section class="section section-grid">
-    <div><p class="eyebrow">Accessible summary</p><h2>A truthful fallback while source details are reviewed.</h2></div>
-    <div class="prose"><p class="notice" role="note">The HTML résumé is available, but employment dates, education, and detailed accomplishments are awaiting verified source material. No PDF download is shown until the real file is configured.</p>
-      <dl class="status-list"><dt>Focus</dt><dd>Full-stack software engineering and software development engineering in test.</dd><dt>Approach</dt><dd>Accessible interfaces, typed boundaries, layered automated testing, and repeatable delivery.</dd><dt>Experience</dt><dd>Awaiting verified résumé details.</dd><dt>Education</dt><dd>Awaiting verified résumé details.</dd><dt>Contact</dt><dd>Public contact details have not been configured.</dd></dl>
+<BaseLayout title="Résumé" description="Isac Zarate’s Backend Engineer / SDET résumé: VivoSense internship, Computer Science education, technical skills, and ClassSeek project." pathname="/resume/">
+  <header class="page-intro">
+    <p class="eyebrow">Résumé</p>
+    <h1>Isac Zarate <span aria-hidden="true">/</span> TheDevIsacZ</h1>
+    <p class="lede">{resume.headline}</p>
+    {hasResumePdf(siteConfig) ? (
+      <div class="button-row">
+        <a class="button button-primary" href={siteConfig.resume.pdfPath}>View résumé PDF</a>
+        <a class="button button-secondary" href={siteConfig.resume.pdfPath} download="isac-zarate-resume.pdf">Download résumé PDF</a>
+      </div>
+    ) : <p class="notice" role="note">Read the résumé below. A PDF download is currently unavailable.</p>}
+  </header>
+  <section class="section section-grid" aria-labelledby="experience-heading">
+    <div><p class="eyebrow">Experience</p><h2 id="experience-heading">Software development and validation.</h2></div>
+    <div class="prose resume-entry">
+      <h3>{resume.experience.title} at {resume.experience.company}</h3>
+      <p class="fine-print">{resume.experience.dates} · {resume.experience.location}</p>
+      <ul>{resume.experience.responsibilities.map((item) => <li>{item}</li>)}</ul>
     </div>
+  </section>
+  <section class="section section-grid" aria-labelledby="education-heading">
+    <div><p class="eyebrow">Education</p><h2 id="education-heading">Computer Science.</h2></div>
+    <div class="prose resume-entry"><h3>{resume.education.school}</h3><p>{resume.education.degree}</p><p class="fine-print">{resume.education.dates} · Expected graduation: {resume.education.expectedGraduation}</p></div>
+  </section>
+  <section class="section section-grid" aria-labelledby="skills-heading">
+    <div><p class="eyebrow">Technical skills</p><h2 id="skills-heading">Development, testing, and delivery.</h2></div>
+    <div class="prose resume-entry">{resume.skills.map((group) => <div><h3>{group.category}</h3><p>{group.items.join(', ')}</p></div>)}</div>
+  </section>
+  <section class="section section-grid" aria-labelledby="project-heading">
+    <div><p class="eyebrow">Project overview</p><h2 id="project-heading">{resume.project.title}</h2></div>
+    <div class="prose"><p class="fine-print">{resume.project.dates}</p><p>{resume.project.summary}</p></div>
+  </section>
+  <section class="section section-grid" aria-labelledby="contact-heading">
+    <div><p class="eyebrow">Languages and contact</p><h2 id="contact-heading">Get in touch.</h2></div>
+    <div class="prose"><p>Languages: {resume.languages.join(', ')}.</p><p><a class="text-link" href={`mailto:${resume.email}`}>{resume.email}</a></p></div>
   </section>
 </BaseLayout>
