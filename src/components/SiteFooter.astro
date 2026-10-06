@@ -1,0 +1,15 @@
+---
+import { siteConfig } from '../config/site';
+---
+
+<footer class="site-footer">
+  <div>
+    <p class="eyebrow">Build with care. Verify with evidence.</p>
+    <p>{siteConfig.name} <span aria-hidden="true">/</span> {siteConfig.handle}</p>
+  </div>
+  <nav aria-label="Footer navigation">
+    <a href="/work/">Work</a><a href="/about/">About</a><a href="/resume/">Résumé</a>
+    {siteConfig.github && <a href={siteConfig.github} rel="me">GitHub</a>}
+  </nav>
+  <p class="fine-print">Static by design. No tracking, account, or contact form.</p>
+</footer>

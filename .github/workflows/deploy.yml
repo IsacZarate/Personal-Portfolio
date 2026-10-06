@@ -1,0 +1,94 @@
+name: Deploy portfolio (manual)
+on:
+  workflow_dispatch:
+    inputs:
+      revision:
+        description: main or a full known-good main-branch commit SHA for rollback
+        default: main
+        required: true
+        type: string
+      authorize:
+        description: Authorize this production upload and CloudFront invalidation
+        required: true
+        default: false
+        type: boolean
+permissions:
+  contents: read
+concurrency:
+  group: portfolio-production
+  cancel-in-progress: false
+jobs:
+  configuration:
+    runs-on: ubuntu-latest
+    outputs:
+      revision: ${{ steps.revision.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate authorization and required variables before OIDC
+        env:
+          DEPLOY_AUTHORIZED: ${{ inputs.authorize }}
+          AWS_DEPLOYMENT_ENABLED: ${{ vars.AWS_DEPLOYMENT_ENABLED }}
+          AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+          AWS_REGION: ${{ vars.AWS_REGION }}
+          AWS_DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          AWS_SITE_BUCKET: ${{ vars.AWS_SITE_BUCKET }}
+          AWS_DISTRIBUTION_ID: ${{ vars.AWS_DISTRIBUTION_ID }}
+        run: node scripts/deployment-config.mjs
+      - name: Resolve a commit already on main
+        id: revision
+        env:
+          REVISION: ${{ inputs.revision }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$REVISION" != main && ! "$REVISION" =~ ^[a-fA-F0-9]{40}$ ]]; then
+            echo 'Use main or a full commit SHA.' >&2; exit 1
+          fi
+          sha=$(git rev-parse --verify "${REVISION}^{commit}")
+          git merge-base --is-ancestor "$sha" origin/main
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+  quality:
+    needs: configuration
+    uses: ./.github/workflows/quality.yml
+    with:
+      revision: ${{ needs.configuration.outputs.revision }}
+  deploy:
+    needs: [configuration, quality]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      AWS_SITE_BUCKET: ${{ vars.AWS_SITE_BUCKET }}
+      AWS_DISTRIBUTION_ID: ${{ vars.AWS_DISTRIBUTION_ID }}
+      RELEASE_SHA: ${{ needs.quality.outputs.revision }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: portfolio-${{ github.run_id }}
+          path: dist/
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          allowed-account-ids: ${{ vars.AWS_ACCOUNT_ID }}
+          role-session-name: portfolio-${{ github.run_id }}
+      - name: Upload validated release and invalidate cached pages
+        run: bash scripts/deploy.sh
+      - name: Verify production
+        run: node scripts/smoke-production.mjs

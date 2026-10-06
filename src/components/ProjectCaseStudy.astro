@@ -1,0 +1,28 @@
+---
+import ProjectActions from './ProjectActions.astro';
+import type { Project } from '../lib/project-schema';
+interface Props { project: Project; }
+const { project } = Astro.props;
+---
+<header class="page-intro">
+  <p class="eyebrow">{project.role} · {project.dates.start}—{project.dates.end}</p>
+  <h1>{project.title}</h1><p class="lede">{project.summary}</p>
+  <ProjectActions project={project} />
+</header>
+<article class="section section-grid">
+  <aside><p class="eyebrow">Technical frame</p><ul class="tag-list" aria-label="Technology stack">{project.stack.map((item) => <li>{item}</li>)}</ul></aside>
+  <div class="prose">
+    <h2>Problem and context</h2><p>{project.context}</p>
+    <h2>Responsibilities</h2><ul>{project.responsibilities.map((item) => <li>{item}</li>)}</ul>
+    <h2>Architecture and decisions</h2><p>{project.architecture}</p>
+    {project.images.map((image) => <figure><img src={image.src} alt={image.alt} width="1200" height="675" loading="lazy" decoding="async" /><figcaption>{image.alt}</figcaption></figure>)}
+    <h2>Implementation challenges</h2><p>{project.challenges}</p>
+    <h2>Testing evidence</h2>
+    {project.testing.map((item) => <section class="evidence-card"><h3>{item.label}</h3><p>{item.detail}</p>{item.source && <a href={item.source}>Supporting evidence for {item.label}</a>}</section>)}
+    <h2>Supported outcomes</h2>
+    {project.outcomes.map((item) => <section class="evidence-card"><h3>{item.label}</h3><p>{item.detail}</p>{item.source && <a href={item.source}>Supporting evidence for {item.label}</a>}</section>)}
+    <h2>Retrospective</h2><p>{project.retrospective}</p>
+    <h2>Next improvements</h2><p>{project.improvements}</p>
+    <slot />
+  </div>
+</article>

@@ -1,0 +1,13 @@
+---
+import { getProjectActions } from '../lib/project-actions';
+import type { Project } from '../lib/project-schema';
+
+interface Props { project: Pick<Project, 'repositoryUrl' | 'demoUrl'>; }
+const actions = getProjectActions(Astro.props.project);
+---
+
+{actions.length > 0 && (
+  <div class="button-row" aria-label="Project links">
+    {actions.map((action) => <a class="button button-secondary" href={action.href} rel="noreferrer">{action.label}</a>)}
+  </div>
+)}

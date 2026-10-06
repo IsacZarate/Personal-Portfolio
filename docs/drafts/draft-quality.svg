@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+  <title id="title">Unpublished quality draft</title>
+  <desc id="description">An abstract test pipeline used only by unpublished project content.</desc>
+  <rect width="1200" height="675" fill="#111827"/>
+  <g fill="none" stroke="#f4f1e8" stroke-width="10">
+    <circle cx="270" cy="338" r="78"/>
+    <circle cx="600" cy="338" r="78"/>
+    <circle cx="930" cy="338" r="78"/>
+    <path d="M348 338h174M678 338h174"/>
+  </g>
+  <circle cx="930" cy="338" r="28" fill="#60a5fa"/>
+</svg>

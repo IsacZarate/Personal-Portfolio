@@ -1,0 +1,62 @@
+name: Portfolio quality
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_call:
+    inputs:
+      revision:
+        type: string
+        required: false
+    outputs:
+      revision:
+        description: Validated source revision
+        value: ${{ jobs.quality.outputs.revision }}
+permissions:
+  contents: read
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      revision: ${{ steps.revision.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.revision || github.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm openspec:validate
+      - run: pnpm lint:content
+      - run: pnpm check
+      - run: pnpm test:coverage
+      - run: pnpm build
+      - run: pnpm test:e2e
+      - run: pnpm test:lighthouse
+      - run: pnpm infra:synth
+      - name: Record validated revision
+        id: revision
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          node scripts/write-release.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-${{ github.run_id }}
+          path: dist/
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: quality-reports-${{ github.run_id }}
+          path: |
+            playwright-report/
+            test-results/
+            .lighthouseci/
+          include-hidden-files: true
+          retention-days: 7

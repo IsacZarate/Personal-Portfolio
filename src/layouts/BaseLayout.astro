@@ -1,0 +1,63 @@
+---
+import { createHash } from 'node:crypto';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { siteConfig } from '../config/site';
+import { buildPageMetadata } from '../lib/metadata';
+import '../styles/global.css';
+
+interface Props { title: string; description: string; pathname?: string; image?: string; noindex?: boolean; }
+const metadata = buildPageMetadata({
+  title: Astro.props.title,
+  description: Astro.props.description,
+  pathname: Astro.props.pathname ?? Astro.url.pathname,
+  image: Astro.props.image,
+  noindex: Astro.props.noindex,
+});
+const socialImage = new URL(metadata.image, siteConfig.domain).toString();
+const structuredData = {
+  '@context': 'https://schema.org', '@type': 'Person', name: siteConfig.name,
+  alternateName: siteConfig.handle, url: siteConfig.domain,
+  sameAs: [siteConfig.github, siteConfig.linkedin].filter(Boolean),
+};
+const jsonLd = JSON.stringify(structuredData).replaceAll('<', '\\u003c');
+Astro.csp?.insertScriptHash(`sha256-${createHash('sha256').update(jsonLd).digest('base64')}`);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{metadata.socialTitle}</title>
+    <meta name="description" content={metadata.description} />
+    <link rel="canonical" href={metadata.canonical} />
+    <meta name="robots" content={metadata.noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <meta property="og:type" content="website" /><meta property="og:site_name" content={`${siteConfig.name} / ${siteConfig.handle}`} />
+    <meta property="og:title" content={metadata.socialTitle} /><meta property="og:description" content={metadata.description} />
+    <meta property="og:url" content={metadata.canonical} /><meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={`${siteConfig.name} / ${siteConfig.handle} — full-stack engineering and software quality`} />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="theme-color" content="#f3efe6" />
+    <script type="application/ld+json" set:html={jsonLd} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="page-shell">
+      <SiteHeader />
+      <main id="main-content" tabindex="-1"><slot /></main>
+      <SiteFooter />
+    </div>
+    <script>
+      document.documentElement.dataset.enhanced = 'true';
+      const revealItems = document.querySelectorAll('[data-reveal]');
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const observer = new IntersectionObserver((entries) => {
+          for (const entry of entries) if (entry.isIntersecting) {
+            entry.target.setAttribute('data-visible', 'true'); observer.unobserve(entry.target);
+          }
+        }, { rootMargin: '0px 0px -8% 0px' });
+        revealItems.forEach((item) => observer.observe(item));
+      } else revealItems.forEach((item) => item.setAttribute('data-visible', 'true'));
+    </script>
+  </body>
+</html>

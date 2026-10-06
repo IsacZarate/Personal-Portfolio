@@ -1,0 +1,18 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import ProjectCaseStudy from '../../components/ProjectCaseStudy.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedProjects } from '../../lib/projects';
+
+export async function getStaticPaths() {
+  const projects = await getPublishedProjects();
+  return projects.map((project) => ({ params: { slug: project.data.slug }, props: { project } }));
+}
+interface Props { project: CollectionEntry<'projects'>; }
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={project.data.title} description={project.data.summary} pathname={`/work/${project.data.slug}/`} image={project.data.images[0]?.src}>
+  <ProjectCaseStudy project={project.data}><Content /></ProjectCaseStudy>
+</BaseLayout>

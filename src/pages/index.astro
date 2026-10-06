@@ -1,0 +1,35 @@
+---
+import EmptyWorkState from '../components/EmptyWorkState.astro';
+import QualitySequence from '../components/QualitySequence';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPublishedProjects } from '../lib/projects';
+const projects = await getPublishedProjects();
+---
+
+<BaseLayout title="Full-stack engineering with an SDET mindset" description="Isac Zarate, TheDevIsacZ, builds full-stack software with quality engineered into the delivery path." pathname="/">
+  <section class="hero">
+    <div class="hero-meta"><span>Isac Zarate</span><span>TheDevIsacZ</span></div>
+    <h1>Software built to work—<em>and keep working.</em></h1>
+    <p class="hero-copy">Full-stack engineering and software quality thinking, brought together in one deliberate practice.</p>
+    <div class="button-row"><a class="button button-primary" href="/resume/">View résumé</a><a class="button button-secondary" href="/work/">Explore work</a></div>
+  </section>
+  <section class="section" aria-labelledby="work-heading" data-reveal>
+    <div class="section-heading"><p class="eyebrow">Selected work</p><h2 id="work-heading">Evidence before embellishment.</h2></div>
+    {projects.length === 0 ? <EmptyWorkState /> : (
+      <div class="project-list">{projects.map((project) => (
+        <article class="project-card"><p class="eyebrow">{project.data.role}</p><h3><a href={`/work/${project.data.slug}/`}>{project.data.title}</a></h3><p>{project.data.summary}</p></article>
+      ))}</div>
+    )}
+  </section>
+  <section class="section" aria-labelledby="strengths-heading" data-reveal>
+    <div class="section-heading"><p class="eyebrow">Technical strengths</p><h2 id="strengths-heading">One system, seen from multiple angles.</h2></div>
+    <div class="card-grid">
+      <article class="card"><p class="number">01</p><h3>Product-minded implementation</h3><p>Interfaces, data boundaries, and delivery choices stay connected to the visitor’s goal.</p></article>
+      <article class="card"><p class="number">02</p><h3>Quality by construction</h3><p>Testability, accessibility, and observability are design inputs instead of final checks.</p></article>
+      <article class="card"><p class="number">03</p><h3>Traceable delivery</h3><p>Specifications, automation, and versioned infrastructure make change easier to verify.</p></article>
+    </div>
+  </section>
+  <section class="section technical-panel" aria-labelledby="quality-heading" data-reveal>
+    <div class="section-grid"><div><p class="eyebrow">Quality engineering</p><h2 id="quality-heading">Confidence is a sequence, not a slogan.</h2></div><QualitySequence client:visible /></div>
+  </section>
+</BaseLayout>

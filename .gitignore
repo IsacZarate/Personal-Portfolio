@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+
+# generated site and framework state
+dist/
+.astro/
+
+# tests and reports
+coverage/
+playwright-report/
+test-results/
+.lighthouseci/
+
+# infrastructure output
+cdk.out/
+
+# local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# editor and operating system files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

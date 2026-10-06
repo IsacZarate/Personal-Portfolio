@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+  <title id="title">Unpublished project draft</title>
+  <desc id="description">An abstract grid used only by unpublished project content.</desc>
+  <rect width="1200" height="675" fill="#ece9e2"/>
+  <g stroke="#cbc6ba" stroke-width="2">
+    <path d="M0 135h1200M0 270h1200M0 405h1200M0 540h1200"/>
+    <path d="M200 0v675M400 0v675M600 0v675M800 0v675M1000 0v675"/>
+  </g>
+  <circle cx="600" cy="338" r="118" fill="#1d4ed8"/>
+</svg>

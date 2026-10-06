@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://isaczarate.com/sitemap-index.xml

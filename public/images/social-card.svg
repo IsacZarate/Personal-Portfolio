@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Isac Zarate, TheDevIsacZ</title><desc id="description">Editorial social card for a full-stack engineering and software quality portfolio.</desc>
+  <rect width="1200" height="630" fill="#f3efe6"/><circle cx="1050" cy="40" r="310" fill="#174bd6" opacity=".1"/><path d="M70 76h1060M70 550h1060" stroke="#cec7ba"/>
+  <text x="70" y="145" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#174bd6" letter-spacing="3">ISAC ZARATE / THEDEVISACZ</text>
+  <text x="70" y="280" font-family="Georgia, serif" font-size="78" fill="#171716">Software built to work—</text><text x="70" y="375" font-family="Georgia, serif" font-size="78" font-style="italic" fill="#174bd6">and keep working.</text>
+  <text x="70" y="500" font-family="Arial, sans-serif" font-size="29" fill="#625f58">Full-stack engineering with an SDET mindset</text>
+</svg>

@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { hasResumePdf, siteConfig } from '../config/site';
+---
+
+<BaseLayout title="Résumé" description="Accessible résumé summary for Isac Zarate, focused on full-stack and SDET roles." pathname="/resume/">
+  <header class="page-intro"><p class="eyebrow">Résumé</p><h1>Isac Zarate <span aria-hidden="true">/</span> TheDevIsacZ</h1><p class="lede">Full-stack engineer with an SDET mindset.</p>{hasResumePdf(siteConfig) && <div class="button-row"><a class="button button-primary" href={siteConfig.resume.pdfPath}>View résumé PDF</a><a class="button button-secondary" href={siteConfig.resume.pdfPath} download>Download résumé PDF</a></div>}</header>
+  <section class="section section-grid">
+    <div><p class="eyebrow">Accessible summary</p><h2>A truthful fallback while source details are reviewed.</h2></div>
+    <div class="prose"><p class="notice" role="note">The HTML résumé is available, but employment dates, education, and detailed accomplishments are awaiting verified source material. No PDF download is shown until the real file is configured.</p>
+      <dl class="status-list"><dt>Focus</dt><dd>Full-stack software engineering and software development engineering in test.</dd><dt>Approach</dt><dd>Accessible interfaces, typed boundaries, layered automated testing, and repeatable delivery.</dd><dt>Experience</dt><dd>Awaiting verified résumé details.</dd><dt>Education</dt><dd>Awaiting verified résumé details.</dd><dt>Contact</dt><dd>Public contact details have not been configured.</dd></dl>
+    </div>
+  </section>
+</BaseLayout>

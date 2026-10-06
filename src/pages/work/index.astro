@@ -1,0 +1,17 @@
+---
+import EmptyWorkState from '../../components/EmptyWorkState.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedProjects } from '../../lib/projects';
+const projects = await getPublishedProjects();
+---
+
+<BaseLayout title="Work" description="Verified full-stack and software quality case studies by Isac Zarate." pathname="/work/">
+  <header class="page-intro"><p class="eyebrow">Work</p><h1>Case studies, with the evidence left in.</h1><p class="lede">Architecture, implementation choices, testing strategy, and results—published only after their supporting details have been reviewed.</p></header>
+  <section class="section" aria-label="Project case studies">
+    {projects.length === 0 ? <EmptyWorkState /> : (
+      <div class="project-list">{projects.map((project) => (
+        <article class="project-card" data-reveal><p class="eyebrow">{project.data.dates.start}—{project.data.dates.end}</p><h2><a href={`/work/${project.data.slug}/`}>{project.data.title}</a></h2><p>{project.data.summary}</p><ul class="tag-list" aria-label="Technology stack">{project.data.stack.map((item) => <li>{item}</li>)}</ul></article>
+      ))}</div>
+    )}
+  </section>
+</BaseLayout>
