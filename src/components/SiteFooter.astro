@@ -3,14 +3,17 @@ import { siteConfig } from '../config/site';
 ---
 
 <footer class="site-footer">
-  <div>
-    <p class="eyebrow">Build with care. Verify with evidence.</p>
-    <p>{siteConfig.name} <span aria-hidden="true">/</span> {siteConfig.handle}</p>
+  <div class="footer-contact">
+    <p class="eyebrow">Contact</p>
+    <h2>Let’s build something thoughtful.</h2>
+    <p>Have a role or a project in mind? I’d love to talk about backend development, automation, and software quality.</p>
+    {siteConfig.email && <a class="contact-link" href={`mailto:${siteConfig.email}`}>Let’s connect by email <span aria-hidden="true">↗</span></a>}
   </div>
-  <nav aria-label="Footer navigation">
-    <a href="/work/">Work</a><a href="/about/">About</a><a href="/resume/">Résumé</a>
-    {siteConfig.github && <a href={siteConfig.github} rel="me">GitHub</a>}
-    {siteConfig.email && <a href={`mailto:${siteConfig.email}`}>Email</a>}
-  </nav>
-  <p class="fine-print">Static by design. No tracking, account, or contact form.</p>
+  <div class="footer-bottom">
+    <p>© {new Date().getFullYear()} {siteConfig.name} · {siteConfig.handle}</p>
+    <nav aria-label="Footer navigation">
+      <a href="/work/">Work</a><a href="/about/">About</a><a href="/resume/">Résumé</a>
+      {siteConfig.github && <a href={siteConfig.github} rel="me">GitHub <span aria-hidden="true">↗</span></a>}
+    </nav>
+  </div>
 </footer>

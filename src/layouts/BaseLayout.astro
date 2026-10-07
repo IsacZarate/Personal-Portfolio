@@ -4,6 +4,8 @@ import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import { siteConfig } from '../config/site';
 import { buildPageMetadata } from '../lib/metadata';
+import bodyFont from '@fontsource/poppins/files/poppins-latin-400-normal.woff2?url';
+import headingFont from '@fontsource/poppins/files/poppins-latin-600-normal.woff2?url';
 import '../styles/global.css';
 
 interface Props { title: string; description: string; pathname?: string; image?: string; noindex?: boolean; }
@@ -29,6 +31,8 @@ Astro.csp?.insertScriptHash(`sha256-${createHash('sha256').update(jsonLd).digest
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={headingFont} as="font" type="font/woff2" crossorigin />
     <title>{metadata.socialTitle}</title>
     <meta name="description" content={metadata.description} />
     <link rel="canonical" href={metadata.canonical} />
@@ -37,13 +41,13 @@ Astro.csp?.insertScriptHash(`sha256-${createHash('sha256').update(jsonLd).digest
     <meta property="og:title" content={metadata.socialTitle} /><meta property="og:description" content={metadata.description} />
     <meta property="og:url" content={metadata.canonical} /><meta property="og:image" content={socialImage} />
     <meta property="og:image:alt" content={`${siteConfig.name} / ${siteConfig.handle} — ${siteConfig.role}`} />
-    <meta name="twitter:card" content="summary_large_image" /><meta name="theme-color" content="#f3efe6" />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="theme-color" content="#11071f" />
     <script type="application/ld+json" set:html={jsonLd} />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
+    <SiteHeader />
     <div class="page-shell">
-      <SiteHeader />
       <main id="main-content" tabindex="-1"><slot /></main>
       <SiteFooter />
     </div>

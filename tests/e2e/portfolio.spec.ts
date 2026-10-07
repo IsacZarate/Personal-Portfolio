@@ -13,6 +13,28 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('public portfolio', () => {
+  test('the redesigned home introduces sourced experience and working recruiter actions', async ({ page }) => {
+    const externalRequests: string[] = [];
+    page.on('request', (request) => {
+      const url = new URL(request.url());
+      if (url.protocol.startsWith('http') && url.hostname !== '127.0.0.1') externalRequests.push(url.href);
+    });
+    await page.goto('/');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Backend Engineer / SDET');
+    await expect(page.getByRole('heading', { name: 'Engineering Intern · VivoSense' })).toBeVisible();
+    await expect(page.getByText('June 2025–Present', { exact: true })).toBeVisible();
+    const skills = page.getByRole('list', { name: 'Selected technical skills' });
+    await expect(skills).toContainText('Java');
+    await expect(skills).toContainText('Python');
+    await expect(skills).toContainText('Selenium');
+    await expect(page.getByRole('link', { name: 'Let’s connect by email' })).toHaveAttribute('href', 'mailto:isaczarate805@gmail.com');
+    await expect(page.locator('iframe')).toHaveCount(0);
+    expect(externalRequests).toEqual([]);
+    await page.getByRole('link', { name: 'View résumé', exact: true }).click();
+    await expect(page).toHaveURL(/\/resume\/$/);
+    await expect(page.getByRole('link', { name: 'Download résumé PDF', exact: true })).toBeVisible();
+  });
+
   for (const route of coreRoutes) {
     test(`${route} is responsive and exposes page metadata`, async ({ page }, testInfo) => {
       await page.goto(route);
@@ -29,6 +51,10 @@ test.describe('public portfolio', () => {
       const overflows = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
       expect(overflows).toBe(false);
       await expect(page.locator('meta[http-equiv="content-security-policy"]')).toHaveAttribute('content', /sha256-/);
+      if (route === '/') {
+        await page.evaluate(() => document.fonts.ready);
+        await page.screenshot({ path: testInfo.outputPath('hero.png'), animations: 'disabled' });
+      }
       await page.screenshot({ path: testInfo.outputPath('page.png'), fullPage: true, animations: 'disabled' });
     });
   }
@@ -177,8 +203,9 @@ test.describe('integrity and accessibility', () => {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
     await page.goto('http://127.0.0.1:4321/');
-    await expect(page.getByRole('heading', { name: /evidence before embellishment/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /a closer look at the work/i })).toBeVisible();
     await expect(page.getByRole('heading', { name: /case studies are being prepared/i })).toBeVisible();
+    await expect(page.getByRole('list', { name: 'Selected technical skills' })).toContainText('Python');
     await expect(page.getByText('Cover content rules, browser journeys, accessibility, and infrastructure output.')).toBeVisible();
     await context.close();
   });

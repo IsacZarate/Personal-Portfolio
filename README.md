@@ -1,6 +1,6 @@
 # Isac Zarate — Personal Portfolio
 
-A static, editorial portfolio for **Isac Zarate / TheDevIsacZ**, headed **Backend Engineer / SDET**. The site is built with Astro and TypeScript, tested as a product, and designed to deploy to a private S3 origin behind CloudFront.
+A static developer portfolio for **Isac Zarate / TheDevIsacZ**, headed **Backend Engineer / SDET**. The site uses a dark purple visual system, is built with Astro and TypeScript, and is designed to deploy to a private S3 origin behind CloudFront. See the [design notes](docs/design.md) for the selected reference, original artwork, and responsive behavior.
 
 ## Current content state
 

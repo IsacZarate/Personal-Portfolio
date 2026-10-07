@@ -1,0 +1,22 @@
+---
+import { resume } from '../config/resume';
+const symbols: Record<string, string> = { Java: 'J', Python: 'Py', JavaScript: 'JS', Kotlin: 'Kt', Selenium: 'Se', AWS: 'aws', Git: 'git', GitHub: 'GH', Postman: 'API', 'GitHub Actions': 'CI' };
+const verifiedSkills = new Set(resume.skills.flatMap((group) => group.items));
+const skills = Object.entries(symbols).filter(([label]) => verifiedSkills.has(label));
+---
+<div class="skills-constellation">
+  <ul class="skill-chips" aria-label="Selected technical skills">
+    {skills.map(([label, symbol]) => <li><span class="skill-symbol" aria-hidden="true">{symbol}</span>{label}</li>)}
+  </ul>
+  <div class="orbit-art" aria-hidden="true">
+    <svg viewBox="0 0 680 310" fill="none" focusable="false">
+      <defs><radialGradient id="orbit-glow"><stop stop-color="#A052DA" stop-opacity=".26"/><stop offset="1" stop-color="#11071F" stop-opacity="0"/></radialGradient><linearGradient id="orbit-lines" x1="340" y1="0" x2="340" y2="225" gradientUnits="userSpaceOnUse"><stop stop-color="#8E55BA" stop-opacity=".1"/><stop offset="1" stop-color="#9C62C8" stop-opacity=".6"/></linearGradient></defs>
+      <ellipse cx="340" cy="210" rx="265" ry="100" fill="url(#orbit-glow)"/>
+      <g stroke="url(#orbit-lines)"><path d="M100 0C100 92 340 44 340 190M185 0C185 87 340 64 340 190M265 0C265 89 340 67 340 190M340 0V190M415 0C415 89 340 67 340 190M495 0C495 87 340 64 340 190M580 0C580 92 340 44 340 190"/></g>
+      <g stroke="#8151A6" stroke-opacity=".45"><ellipse cx="340" cy="230" rx="242" ry="49"/><ellipse cx="340" cy="230" rx="193" ry="67"/><ellipse cx="340" cy="230" rx="112" ry="31"/></g>
+      <g fill="#BD88E4"><circle cx="123" cy="209" r="3"/><circle cx="473" cy="281" r="3"/><circle cx="555" cy="254" r="2"/><circle cx="265" cy="290" r="2"/></g>
+      <g stroke="#A176C0" stroke-linecap="round"><path d="M538 177v8m-4-4h8M182 260v8m-4-4h8"/></g>
+    </svg>
+    <span class="orbit-monogram">iz.</span>
+  </div>
+</div>

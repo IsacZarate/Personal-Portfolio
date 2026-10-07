@@ -3,8 +3,9 @@ import { siteConfig } from '../config/site';
 
 const currentPath = Astro.url.pathname;
 const links = [
-  { href: '/work/', label: 'Work' },
+  { href: '/', label: 'Home' },
   { href: '/about/', label: 'About' },
+  { href: '/work/', label: 'Work' },
   { href: '/resume/', label: 'Résumé' },
 ];
 const isCurrent = (href: string) =>
@@ -12,18 +13,21 @@ const isCurrent = (href: string) =>
 ---
 
 <header class="site-header" data-site-header>
-  <a class="identity" href="/" aria-label={`${siteConfig.name}, ${siteConfig.handle}, home`}>
-    <span>{siteConfig.name}</span><span aria-hidden="true">/</span><span>{siteConfig.handle}</span>
+  <div class="header-inner page-shell">
+  <a class="identity" href="/">
+    <span class="identity-mark" aria-hidden="true">iz.</span>
+    <span class="identity-copy"><span>{siteConfig.name}</span> <span>{siteConfig.handle}</span></span>
   </a>
   <nav class="desktop-nav" aria-label="Primary navigation">
-    {links.map((link) => <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>{link.label}</a>)}
+    {links.map((link) => <a href={link.href} class:list={[{ 'nav-resume': link.href === '/resume/' }]} aria-current={isCurrent(link.href) ? 'page' : undefined}>{link.label}</a>)}
   </nav>
   <details class="mobile-nav">
-    <summary aria-label="Toggle primary navigation">Menu</summary>
+    <summary aria-label="Menu: toggle primary navigation">Menu</summary>
     <nav aria-label="Mobile navigation">
       {links.map((link) => <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>{link.label}</a>)}
     </nav>
   </details>
+  </div>
 </header>
 <script>
   document.querySelectorAll<HTMLDetailsElement>('.mobile-nav').forEach((menu) => {

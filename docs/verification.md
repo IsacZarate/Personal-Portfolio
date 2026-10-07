@@ -47,6 +47,26 @@ Latest local mobile Lighthouse results, using the same profile described above:
 | `/about/` | 98 | 100 | 100 | 100 | 1.81 s | 0.040 |
 | `/resume/` | 100 | 100 | 100 | 100 | 1.51 s | 0.001 |
 
+## Purple portfolio redesign on October 6 2026
+
+Implemented the selected dark-purple direction with original artwork and components. The existing resume facts, PDF, contact details, and unpublished project boundaries are unchanged.
+
+- Strict OpenSpec validation, public content checks, Astro type checking (zero errors, warnings, or hints), and the production build passed. The existing non-blocking MDX bundler notices remain.
+- All 40 unit/component/infrastructure/workflow tests and all 33 active desktop/mobile Chromium journeys passed; three duplicate integrity checks remain desktop-only.
+- Browser checks cover the sourced home overview, resume CTA and PDF, email, no external asset requests, draft exclusion, keyboard navigation, reduced motion, no-script content, axe, internal links, metadata, and 404 recovery. No serious or critical axe violations were reported.
+- Reviewed the shared route styling and case-study template, desktop/mobile captures, and home layouts at 320, 390, 768, and 1440 CSS pixels. Inspected the lower-page content after scrolling and verified that the quality sequence remains keyboard operable.
+- Initial home audits missed the performance budget due to main-thread style/layout work. Regular/semibold font preloads and native offscreen-section rendering reduce initial work; the final audit below passed the unchanged thresholds. Navigation text/accessibility-name checks also pass.
+- Credential-free CDK synthesis passed with lookups disabled. No AWS provisioning or deployment occurred.
+
+Final local mobile Lighthouse results under the existing single-run profile (lab observations, not field measurements):
+
+| Route | Performance | Accessibility | Best practices | SEO | LCP | CLS |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `/` | 96 | 100 | 100 | 100 | 1.24 s | 0 |
+| `/work/` | 100 | 100 | 100 | 100 | 1.22 s | 0 |
+| `/about/` | 100 | 100 | 100 | 100 | 1.22 s | 0 |
+| `/resume/` | 100 | 100 | 100 | 100 | 1.22 s | 0.0003 |
+
 ## Still required before public launch
 
 Supply project evidence and media before publishing case studies, and provide LinkedIn if desired. Purchase/verify the domain separately, configure the AWS account and hosted zone, protect `main`, and authorize infrastructure and production deployment. Then verify public HTTPS, host redirection, response headers, caching, and rollback against the actual AWS endpoints. Firefox/Safari device review and full manual accessibility review remain launch checks; automated Chromium/axe results do not claim complete WCAG conformance, PDF/UA certification, or real-user INP.

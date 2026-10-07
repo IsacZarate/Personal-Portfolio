@@ -22,6 +22,7 @@ Install Chromium with `pnpm test:e2e:install`. The Lighthouse wrapper uses that 
 | OpenSpec capability | Executable evidence |
 | --- | --- |
 | Portfolio routes, identity, metadata, responsive access, résumé fallback and motion | `tests/e2e/portfolio.spec.ts`, `src/lib/metadata.test.ts`, `src/config/site.test.ts` |
+| Purple visual system, sourced home overview, local artwork and no-script content | redesigned-home browser journey, responsive screenshots, no-script and external-request checks; manual 320/390/768/1440px review recorded in `docs/verification.md` |
 | Published résumé facts, PDF/email actions, and ClassSeek remaining outside featured work | résumé browser journeys, shared `src/data/resume.json`, `scripts/verify-resume.py`, manual document/page review |
 | Valid content, draft exclusion, complete narrative and optional actions | `src/lib/project-schema.test.ts`, `projects.test.ts`, `content-validation.test.ts`, `src/components/ProjectCaseStudy.test.ts` |
 | Keyboard operation and stateful interaction | `src/components/QualitySequence.test.tsx`, browser keyboard journeys |

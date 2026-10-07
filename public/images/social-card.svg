@@ -1,7 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
-  <title id="title">Isac Zarate, TheDevIsacZ — Backend Engineer / SDET</title><desc id="description">Editorial social card for Isac Zarate’s backend engineering and software testing portfolio.</desc>
-  <rect width="1200" height="630" fill="#f3efe6"/><circle cx="1050" cy="40" r="310" fill="#174bd6" opacity=".1"/><path d="M70 76h1060M70 550h1060" stroke="#cec7ba"/>
-  <text x="70" y="145" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#174bd6" letter-spacing="3">ISAC ZARATE / THEDEVISACZ</text>
-  <text x="70" y="280" font-family="Georgia, serif" font-size="78" fill="#171716">Backend Engineer</text><text x="70" y="375" font-family="Georgia, serif" font-size="78" font-style="italic" fill="#174bd6">/ SDET</text>
-  <text x="70" y="500" font-family="Arial, sans-serif" font-size="29" fill="#625f58">Java · Python · APIs · Software testing</text>
+  <title id="title">Isac Zarate, TheDevIsacZ — Backend Engineer / SDET</title><desc id="description">Purple social card for Isac Zarate’s backend engineering and software testing portfolio.</desc>
+  <defs><radialGradient id="glow"><stop stop-color="#7339A5" stop-opacity=".7"/><stop offset="1" stop-color="#11071F" stop-opacity="0"/></radialGradient></defs>
+  <rect width="1200" height="630" fill="#11071F"/><ellipse cx="1030" cy="350" rx="480" ry="360" fill="url(#glow)"/>
+  <text x="76" y="104" font-family="Arial, sans-serif" font-size="26" fill="#C799FF" letter-spacing="2">ISAC ZARATE / THEDEVISACZ</text>
+  <text x="70" y="257" font-family="Arial, sans-serif" font-size="78" font-weight="700" fill="#F7F3FF">Backend Engineer</text>
+  <text x="76" y="364" font-family="Arial, sans-serif" font-size="78" font-weight="700" fill="#C799FF">/ SDET</text>
+  <ellipse cx="235" cy="338" rx="152" ry="57" stroke="#BC91DB" fill="none" transform="rotate(-7 235 338)"/>
+  <text x="76" y="469" font-family="Arial, sans-serif" font-size="27" fill="#C0B4D0">Thoughtful code. Thorough testing.</text>
+  <path d="M76 526h1048" stroke="#443153"/>
+  <text x="76" y="572" font-family="Arial, sans-serif" font-size="22" fill="#C0B4D0">Java · Python · APIs · Software quality</text>
+  <text x="1090" y="570" text-anchor="end" font-family="Arial, sans-serif" font-size="27" font-weight="700" fill="#C799FF">iz.</text>
 </svg>

@@ -1,0 +1,12 @@
+---
+interface Props { kind: 'code' | 'shield' | 'education' | 'work'; }
+const { kind } = Astro.props;
+---
+<div class="feature-icon" aria-hidden="true">
+  <svg viewBox="0 0 32 32" focusable="false">
+    {kind === 'code' && <path d="m11 10-6 6 6 6m10-12 6 6-6 6m-3-15-4 18" />}
+    {kind === 'shield' && <><path d="M16 3 5 7v8c0 7 11 14 11 14s11-7 11-14V7Z"/><path d="m10 15 4 4 8-8"/></>}
+    {kind === 'education' && <path d="m2 11 14-7 14 7-14 7Zm6 5v7c5 4 11 4 16 0v-7m6-5v11"/>}
+    {kind === 'work' && <><rect x="4" y="10" width="24" height="18" rx="4"/><path d="M11 10V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4M4 17c8 4 16 4 24 0m-12 0v5"/></>}
+  </svg>
+</div>
